@@ -14,7 +14,7 @@ export type GeneratedBookletParams = {
 
 export class GeneratedBookletService {
   private docDefinition: {
-    pageOrientation: string;
+    pageOrientation: any;
     content: any[];
   };
 
@@ -34,112 +34,49 @@ export class GeneratedBookletService {
           { text: "Carnê de Pagamento", fontSize: 18, bold: true, alignment: 'center' },
           { text: "Telefone para contato", fontSize: 12, alignment: 'center', margin:[0,0,0,10] },
               {
-                style: 'tableExample',
-            
+              
                 table: {
-                   widths: [50, 100, 250, 150],
+                    widths: [100,100,150,130,100,140],
                     headerRows: 1,
                     body: [
                         [
-                            [
-                                {text: 'Parcela', alignment: 'center', border: [true]}, 
-                                {text: '1', alignment: 'center', bold: true}
-                           ],
-                
-        
-                           [
-                               {text: 'Vencimento', alignment: 'center', border: [true] }, 
-                               {text: '01/02/2023', alignment: 'center', bold: true}
-                           ], 
-                           
-                           [ {text: 'Local de Pagamento', alignment: 'center', border: [true]}],
-                           [
-                               {text: 'Vencimento', alignment: 'center', border: [true] }, 
-                               {text: '01/02/2023', alignment: 'center', bold: true}
-                           ],
-                           
-                           
-                      ],
-                        [
-                         {
-                             colSpan: 2,
-                             text: 'Valor do documento \n R$ 3.345,90',
-                             alignment: 'center'
-                         },
-                          {
+                           {text: 'Parcela \n 1', alignment: 'center', style: 'tableHeader'},
+                           {text: 'Vencimento \n 21/02/2023', alignment: 'center', style: 'tableHeader' }, 
+                           {text: 'Local de Pagamento', alignment: 'center',style: 'tableHeader', colSpan:3},
+                           '', 
+                           '',
+                           {text: 'Vencimento \n 21/02/2023', alignment: 'center', style: 'tableHeader' }, 
                              
-                          },
-                          [{text: 'Cedente', alignment: 'center', border: [true] }],
-                           [
-                                {text: '(=) Valor do documento', alignment: 'center', border: [true] }, 
-                               {text: '01/02/2023', alignment: 'center', bold: true}
-                           ],
                            
+                       ],
+                       [
+                           {text: '(=) Valor do documento \n R$ 123,00', alignment: 'center', colSpan:2, style: 'tableHeader'},
+                           {}, 
+                           {text: 'Cedente', alignment: 'center', colSpan:3, style: 'tableHeader'},
+                           '', 
+                           '',
+                           {text: 'Valor do documento \n R$ 134,90', alignment: 'center',  style: 'tableHeader' }, 
+                             
                            
-                      ],
-                      
-                        [
-                            [
-                                {text: 'Parcela', alignment: 'center', border: [true]}, 
-                                {text: '1', alignment: 'center', bold: true}
-                           ],
-                
-        
-                           [
-                               {text: 'Vencimento', alignment: 'center', border: [true] }, 
-                               {text: '01/02/2023', alignment: 'center', bold: true}
-                           ], 
+                       ],
+                          [
+                           {text: '(-) Desconto', alignment: 'center', colSpan:2, style: 'tableHeader'},
+                           {}, 
+                           {text: 'Data do documento \n 01/01/2021', alignment: 'center', style: 'tableHeader'},
+                           {text: 'Número do documento \n 3928736', alignment: 'center', colSpan:2,style: 'tableHeader'},
+                           '',
+                           {text: '(-) Desconto', alignment: 'center',  style: 'tableHeader' }, 
+                             
                            
-                           [ {text: 'Local de Pagamento', alignment: 'center', border: [true]}],
-                           [
-                               {text: '(-) Desconto', alignment: 'center', border: [true] }, 
-                               {text: 'R$ 12,90', alignment: 'center', bold: true}
-                           ],
-                           
-                           
-                      ],
-                      
-                        
-                    
+                       ],
                     ]
                 },
             
-                    layout: {
-                    hLineWidth: function (i, node) {
-                        if(i==0) return 2
-                        return 1
-                    },
-                    vLineWidth: function (i, node) {
-                        return 1
-                    },
-                    hLineColor: function (i, node) {
-                        return 'black';
-                    },
-                    vLineColor: function (i, node) {
-                        return 'black';
-                    },
-                    hLineStyle: function (i, node) {
-                        if (i === 0 || i === node.table.body.length) {
-                            return null;
-                        }
-                        
-                        return {dash: {length: 10, space: 1}};
-                    },
-                    vLineStyle: function (i, node) {
-                        if (i === 0 || i === node.table.widths.length) {
-                            return null;
-                        }
-                        return {dash: {length: 4}};
-                    },
-                    paddingLeft: function(i, node) { return 0; },
-                    // paddingRight: function(i, node) { return 4; },
-                    paddingTop: function(i, node) { return 0; },
-                    // paddingBottom: function(i, node) { return 2; },
-                    // fillColor: function (i, node) { return null; }
-                }
+               
             },
     
         ]
+    
   }
 
     const pdfData = pdfMake.createPdf(this.docDefinition);
